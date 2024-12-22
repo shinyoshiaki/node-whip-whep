@@ -11,12 +11,16 @@
   ],
   "scripts": {
     "#add-package": "npm init -w libs/a",
+    "lint": "npm run lint --workspaces --if-present",
     "upgrade-interactive": "npm-check --update",
     "type": "npm run type --workspaces --if-present",
     "doc": "npm run doc --workspaces --if-present",
     "server": "cd examples/server && npm run dev",
     "whip-web": "cd examples/whip-web && npm run dev",
     "whep-web": "cd examples/whep-web && npm run dev"
+  },
+  "dependencies": {
+    "@biomejs/biome": "^1.9.4"
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
@@ -44,8 +48,5 @@
   "packageManager": "npm@8.12.2",
   "engines": {
     "node": ">=16"
-  },
-  "dependencies": {
-    "@biomejs/biome": "^1.9.4"
   }
 }

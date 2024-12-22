@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { type FC, useRef, useState } from "react";
 import { WHEPClient } from ".";
 
 //Create whep client

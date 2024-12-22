@@ -1,4 +1,4 @@
-import { whepSession, whipSession } from "..";
+import type { whepSession, whipSession } from "..";
 
 export class WhipSource {
   audio!: whepSession.MediaStreamTrack;

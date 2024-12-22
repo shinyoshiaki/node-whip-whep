@@ -1,11 +1,11 @@
 import {
   IceCandidate,
-  MediaStreamTrack,
-  PeerConfig,
+  type MediaStreamTrack,
+  type PeerConfig,
   RTCPeerConnection,
   useSdesRTPStreamId,
 } from "werift";
-import { MediaAttributes, parse, write } from "sdp-transform";
+import { type MediaAttributes, parse, write } from "sdp-transform";
 import { randomUUID } from "crypto";
 import Event from "rx.mini";
 
@@ -69,7 +69,7 @@ export class WhipMediaSession {
   }
 
   private async setRemoteIceCandidate(
-    candidates: NonNullable<MediaAttributes["candidates"]>
+    candidates: NonNullable<MediaAttributes["candidates"]>,
   ) {
     for (const candidate of candidates) {
       await this.pc.addIceCandidate(
@@ -80,8 +80,8 @@ export class WhipMediaSession {
           candidate.port,
           Number(candidate.priority),
           candidate.transport,
-          candidate.type
-        ).toJSON()
+          candidate.type,
+        ).toJSON(),
       );
     }
   }

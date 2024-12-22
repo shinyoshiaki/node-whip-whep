@@ -1,5 +1,5 @@
-import { whipSource, sessionRepository } from "../dependencies";
-import { whepSession } from "..";
+import type { whepSession } from "..";
+import { sessionRepository, whipSource } from "../dependencies";
 
 export class WhepUsecase {
   createSession = async (sdp: string) => {

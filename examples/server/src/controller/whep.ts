@@ -1,10 +1,10 @@
-import Ajv from "ajv";
-import { FastifyRequest, FastifyReply } from "fastify";
 import { on } from "events";
+import Ajv from "ajv";
+import type { FastifyReply, FastifyRequest } from "fastify";
 import { whep, whepSession } from "..";
 
-import { config } from "../config";
 import { EventEmitter } from "stream";
+import { config } from "../config";
 import { whepUsecase } from "../dependencies";
 
 const {
@@ -28,7 +28,7 @@ export async function whepOffer(
   req: FastifyRequest<{
     Body: whep.OfferParams["body"];
   }>,
-  reply: FastifyReply
+  reply: FastifyReply,
 ): Promise<void> {
   try {
     checkOfferRequestBody(req.body);
@@ -72,7 +72,7 @@ export async function whepIce(
     Headers: whep.IceParams["params"];
     Params: whep.IceParams["params"];
   }>,
-  reply: FastifyReply
+  reply: FastifyReply,
 ): Promise<void> {
   try {
     checkResourceRequestBody(req.body);
@@ -95,7 +95,7 @@ export async function whepSse(
     Body: whep.SseParams["body"];
     Params: whep.SseParams["params"];
   }>,
-  reply: FastifyReply
+  reply: FastifyReply,
 ): Promise<void> {
   try {
     checkSseRequestBody(req.body);
@@ -121,7 +121,7 @@ export async function whepSseStream(
   req: FastifyRequest<{
     Params: whep.SseParams["params"];
   }>,
-  reply: FastifyReply
+  reply: FastifyReply,
 ): Promise<void> {
   try {
     const { id } = req.params;
@@ -157,7 +157,7 @@ export async function whepLayer(
     Body: whep.LayerParams["body"];
     Params: whep.LayerParams["params"];
   }>,
-  reply: FastifyReply
+  reply: FastifyReply,
 ): Promise<void> {
   try {
     checkLayerRequestBody(req.body);

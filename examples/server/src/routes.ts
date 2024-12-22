@@ -1,12 +1,12 @@
 import cors from "@fastify/cors";
-import { FastifyInstance } from "fastify";
+import type { FastifyInstance } from "fastify";
 import { FastifySSEPlugin } from "fastify-sse-v2";
 
 import { whep, whip } from ".";
 import {
+  whepIce,
   whepLayer,
   whepOffer,
-  whepIce,
   whepSse,
   whepSseStream,
 } from "./controller/whep";
@@ -24,14 +24,14 @@ export async function registerExternalRoutes(server: FastifyInstance) {
     { parseAs: "string" },
     (_, body, done) => {
       done(null, body);
-    }
+    },
   );
   server.addContentTypeParser(
     "application/trickle-ice-sdpfrag",
     { parseAs: "string" },
     (_, body, done) => {
       done(null, body);
-    }
+    },
   );
 
   server.post(convertPath(whep.offerEndpoint.path), whepOffer);

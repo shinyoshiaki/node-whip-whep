@@ -1,5 +1,5 @@
 import Ajv from "ajv";
-import { FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
 import { whip } from "..";
 import { config } from "../config";
 import { whipUsecase } from "../dependencies";
@@ -14,7 +14,7 @@ export async function whipOffer(
   req: FastifyRequest<{
     Body: whip.OfferParams["body"];
   }>,
-  reply: FastifyReply
+  reply: FastifyReply,
 ): Promise<void> {
   try {
     checkOfferRequestBody(req.body);
@@ -48,7 +48,7 @@ export async function whipIce(
     Headers: whip.IceParams["params"];
     Params: whip.IceParams["params"];
   }>,
-  reply: FastifyReply
+  reply: FastifyReply,
 ): Promise<void> {
   try {
     checkResourceRequestBody(req.body);
