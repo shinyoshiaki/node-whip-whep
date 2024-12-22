@@ -1,1 +1,1 @@
-export * from "../../../libs/whep-client/src";
+export * from "../../../libs/whep-receiver/src";

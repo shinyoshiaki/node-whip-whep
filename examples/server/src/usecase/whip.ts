@@ -1,5 +1,5 @@
 import { whipSession } from "..";
-import { RTCRtpCodecParameters } from "../../../../libs/whep-session/src";
+import { RTCRtpCodecParameters } from "../../../../libs/whep-sender/src";
 import { whipSource } from "../dependencies";
 
 export class WhipUsecase {
