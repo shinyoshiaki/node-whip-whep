@@ -1,12 +1,12 @@
+import { randomUUID } from "crypto";
+import { Event } from "rx.mini";
+import { type MediaAttributes, parse } from "sdp-transform";
 import {
   IceCandidate,
-  MediaStreamTrack,
-  PeerConfig,
+  type MediaStreamTrack,
+  type PeerConfig,
   RTCPeerConnection,
-} from "werift";
-import { MediaAttributes, parse } from "sdp-transform";
-import { randomUUID } from "crypto";
-import Event from "rx.mini";
+} from "../imports/werift.js";
 
 export interface LayersEvent {
   [key: string]: {
@@ -46,7 +46,7 @@ export type Events = LayersEvent;
 
 export const supportedEvents = ["layers"];
 
-export class WhepMediaSession {
+export class WhepSender {
   readonly id = randomUUID();
   pc: RTCPeerConnection;
   etag = randomUUID();
@@ -58,7 +58,7 @@ export class WhepMediaSession {
       video?: MediaStreamTrack[];
       audio?: MediaStreamTrack;
       config?: Partial<PeerConfig>;
-    }
+    },
   ) {
     this.pc = new RTCPeerConnection(props.config);
     this.pc.connectionStateChange.subscribe((state) => {
@@ -166,7 +166,7 @@ export class WhepMediaSession {
   }
 
   private async setRemoteIceCandidate(
-    candidates: NonNullable<MediaAttributes["candidates"]>
+    candidates: NonNullable<MediaAttributes["candidates"]>,
   ) {
     for (const candidate of candidates) {
       await this.pc.addIceCandidate(
@@ -177,8 +177,8 @@ export class WhepMediaSession {
           candidate.port,
           Number(candidate.priority),
           candidate.transport,
-          candidate.type
-        ).toJSON()
+          candidate.type,
+        ).toJSON(),
       );
     }
   }

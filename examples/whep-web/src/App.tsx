@@ -1,8 +1,8 @@
 import { type FC, useRef, useState } from "react";
-import { WHEPClient } from ".";
+import { WhepReceiver } from "./imports/whep.js";
 
 //Create whep client
-const whep = new WHEPClient();
+const whep = new WhepReceiver();
 
 function App() {
   const videoRef = useRef<HTMLVideoElement>(null);

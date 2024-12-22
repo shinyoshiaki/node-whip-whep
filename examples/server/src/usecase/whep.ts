@@ -1,5 +1,5 @@
-import type { whepSession } from "..";
-import { sessionRepository, whipSource } from "../dependencies";
+import { sessionRepository, whipSource } from "../dependencies.js";
+import type { RequestLayer } from "../imports/whep.js";
 
 export class WhepUsecase {
   createSession = async (sdp: string) => {
@@ -62,7 +62,7 @@ export class WhepUsecase {
     request,
   }: {
     id: string;
-    request: whepSession.RequestLayer;
+    request: RequestLayer;
   }) => {
     console.log("requestLayer", { id, request });
 

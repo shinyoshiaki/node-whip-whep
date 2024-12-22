@@ -1,5 +1,5 @@
-import { Static, Type } from "@sinclair/typebox";
-import {
+import { type Static, Type } from "@sinclair/typebox";
+import type {
   ParameterObject,
   PathItemObject,
   ResponseObject,

@@ -1,18 +1,18 @@
+import { Event } from "rx.mini";
+import { type MediaAttributes, parse, write } from "sdp-transform";
+import { v4 } from "uuid";
 import {
   IceCandidate,
   type MediaStreamTrack,
   type PeerConfig,
   RTCPeerConnection,
   useSdesRTPStreamId,
-} from "werift";
-import { type MediaAttributes, parse, write } from "sdp-transform";
-import { randomUUID } from "crypto";
-import Event from "rx.mini";
+} from "../imports/werift.js";
 
-export class WhipMediaSession {
-  readonly id = randomUUID();
+export class WhepReceiver {
+  readonly id = v4();
+  etag = v4();
   pc: RTCPeerConnection;
-  etag = randomUUID();
   onTrack = new Event<[MediaStreamTrack]>();
 
   constructor(config: Partial<PeerConfig> = {}) {

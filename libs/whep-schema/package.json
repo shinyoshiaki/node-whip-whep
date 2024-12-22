@@ -9,7 +9,8 @@
     "doc": "run-s schema html",
     "schema": "ts-node scripts/openapi.ts",
     "html": "npx redoc-cli bundle ./docs/openapi.json -o ./docs/openapi.html",
-    "type": "tsc -p ./tsconfig.json --noEmit"
+    "type": "tsc -p ./tsconfig.json --noEmit",
+    "lint": "biome check --write src"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.28.18",

@@ -1,22 +1,26 @@
-import { whepSession } from "..";
+import {
+  type MediaStreamTrack,
+  RTCRtpCodecParameters,
+} from "../imports/werift.js";
+import { WhepSender } from "../imports/whep.js";
 
 export class SessionRepository {
-  private sessions = new Map<string, whepSession.WhepMediaSession>();
+  private sessions = new Map<string, WhepSender>();
 
   createSession({
     video,
     audio,
   }: {
-    video?: whepSession.MediaStreamTrack[];
-    audio?: whepSession.MediaStreamTrack;
+    video?: MediaStreamTrack[];
+    audio?: MediaStreamTrack;
   }) {
-    const session = new whepSession.WhepMediaSession({
+    const session = new WhepSender({
       video,
       audio,
       config: {
         codecs: {
           video: [
-            new whepSession.RTCRtpCodecParameters({
+            new RTCRtpCodecParameters({
               mimeType: "video/H264",
               clockRate: 90000,
               rtcpFeedback: [
@@ -27,7 +31,7 @@ export class SessionRepository {
             }),
           ],
           audio: [
-            new whepSession.RTCRtpCodecParameters({
+            new RTCRtpCodecParameters({
               mimeType: "audio/opus",
               clockRate: 48000,
               channels: 2,

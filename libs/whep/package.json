@@ -1,12 +1,14 @@
 {
-  "name": "@shinyoshiaki/whep-client",
+  "name": "@shinyoshiaki/whep",
   "version": "0.0.1",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
     "build": "tsc -p ./tsconfig.build.json",
-    "type": "tsc -p ./tsconfig.json --noEmit"
+    "type": "tsc -p ./tsconfig.json --noEmit",
+    "lint": "biome check --write src"
   },
   "repository": {
     "type": "git",

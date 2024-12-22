@@ -1,22 +1,29 @@
-import type { RTCIceCandidate, RTCPeerConnection } from "./imports/werift.js";
+import type * as werift from "../imports/werift.js";
 
-export class WHIPClient {
+type PeerConnection = werift.RTCPeerConnection;
+type IceCandidate = werift.RTCIceCandidate;
+
+export class WhipSender {
   iceUsername: string;
   icePassword: string;
-  candidates: RTCIceCandidate[] = [];
+  candidates: IceCandidate[] = [];
   endOfcandidates: boolean = false;
-  pc: RTCPeerConnection;
+  pc: PeerConnection;
   token?: string;
   iceTrickeTimeout: any;
   resourceURL: URL;
 
-  async publish(pc: RTCPeerConnection, url: string, token?: string) {
+  async publish(
+    pc: werift.RTCPeerConnection | RTCPeerConnection,
+    url: string,
+    token?: string,
+  ) {
     //If already publishing
     if (this.pc) throw new Error("Already publishing");
 
     //Store pc object and token
     this.token = token;
-    this.pc = pc;
+    this.pc = pc as werift.RTCPeerConnection;
 
     //Listen for state change events
     pc.onconnectionstatechange = () => {
@@ -161,7 +168,7 @@ export class WHIPClient {
       //If any configured
       if (config.iceServers.length)
         //Set it
-        pc.setConfiguration(config);
+        pc.setConfiguration(config as any);
     }
 
     //Get the SDP answer
@@ -172,7 +179,7 @@ export class WHIPClient {
       this.iceTrickeTimeout = setTimeout(() => this.trickle(), 0);
 
     //Set local description
-    await pc.setLocalDescription(offer);
+    await pc.setLocalDescription(offer as any);
 
     // TODO: chrome is returning a wrong value, so don't use it for now
     //try {

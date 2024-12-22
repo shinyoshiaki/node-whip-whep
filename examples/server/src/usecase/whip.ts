@@ -1,12 +1,12 @@
-import { whipSession } from "..";
-import { RTCRtpCodecParameters } from "../../../../libs/whep-sender/src";
-import { whipSource } from "../dependencies";
+import { whipSource } from "../dependencies.js";
+import { RTCRtpCodecParameters } from "../imports/werift.js";
+import { WhepReceiver } from "../imports/whip.js";
 
 export class WhipUsecase {
   createSession = async (sdp: string) => {
     console.log("createSession");
 
-    const session = new whipSession.WhipMediaSession({
+    const session = new WhepReceiver({
       codecs: {
         video: [
           new RTCRtpCodecParameters({

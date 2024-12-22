@@ -1,7 +1,7 @@
 const ianaSSE = "urn:ietf:params:whep:ext:core:server-sent-events";
 export const ianaLayer = "urn:ietf:params:whep:ext:core:layer";
 
-export class WHEPClient extends EventTarget {
+export class WhepReceiver extends EventTarget {
   iceUsername?: string;
   icePassword?: string;
   candidates: RTCIceCandidate[] = [];
@@ -55,7 +55,7 @@ export class WHEPClient extends EventTarget {
     pc.onicecandidate = (event) => {
       if (event.candidate) {
         //Ignore candidates not from the first m line
-        if (event.candidate.sdpMLineIndex ?? 0 > 0)
+        if ((event.candidate.sdpMLineIndex ?? 0) > 0)
           //Skip
           return;
         //Store candidate
@@ -178,7 +178,7 @@ export class WHEPClient extends EventTarget {
         //Get the resource url
         const sseUrl = new URL(
           fetched.headers.get("location") ?? "",
-          this.eventsUrl
+          this.eventsUrl,
         );
         //Open it
         this.eventSource = new EventSource(sseUrl);
@@ -189,7 +189,7 @@ export class WHEPClient extends EventTarget {
           (event as any).message = JSON.parse(event.data);
           console.dir(event);
           this.dispatchEvent(
-            new CustomEvent(event.type, { detail: JSON.parse(event.data) })
+            new CustomEvent(event.type, { detail: JSON.parse(event.data) }),
           );
         };
       });
@@ -217,7 +217,7 @@ export class WHEPClient extends EventTarget {
           for (const [key, value] of Object.entries(server.params)) {
             //Get key in cammel case
             const cammelCase = key.replace(/([-_][a-z])/gi, ($1) =>
-              $1.toUpperCase().replace("-", "").replace("_", "")
+              $1.toUpperCase().replace("-", "").replace("_", ""),
             );
             //Unquote value and set them
             iceServer[cammelCase] = value;
@@ -396,11 +396,11 @@ export class WHEPClient extends EventTarget {
       //Patch
       remoteDescription.sdp = remoteDescription.sdp.replaceAll(
         /(a=ice-ufrag:)(.*)\r\n/gm,
-        "$1" + iceUsername + "\r\n"
+        "$1" + iceUsername + "\r\n",
       );
       remoteDescription.sdp = remoteDescription.sdp.replaceAll(
         /(a=ice-pwd:)(.*)\r\n/gm,
-        "$1" + icePassword + "\r\n"
+        "$1" + icePassword + "\r\n",
       );
 
       //Set it
@@ -433,7 +433,7 @@ export class WHEPClient extends EventTarget {
       temporalLayerId: string;
       maxSpatialLayerId: string;
       maxTemporalLayerId: string;
-    }>
+    }>,
   ) {
     if (!this.layerUrl)
       throw new Error("WHIP resource does not support layer selection");

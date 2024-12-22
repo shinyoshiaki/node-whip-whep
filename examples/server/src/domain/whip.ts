@@ -1,11 +1,12 @@
-import type { whepSession, whipSession } from "..";
+import type { MediaStreamTrack } from "../imports/werift.js";
+import type { WhepReceiver } from "../imports/whip.js";
 
 export class WhipSource {
-  audio!: whepSession.MediaStreamTrack;
-  video: whepSession.MediaStreamTrack[] = [];
-  session!: whipSession.WhipMediaSession;
+  audio!: MediaStreamTrack;
+  video: MediaStreamTrack[] = [];
+  session!: WhepReceiver;
 
-  setup(session: whipSession.WhipMediaSession) {
+  setup(session: WhepReceiver) {
     this.audio = undefined as any;
     this.video = [];
 

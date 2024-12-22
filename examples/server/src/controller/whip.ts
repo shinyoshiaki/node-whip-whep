@@ -1,10 +1,14 @@
-import Ajv from "ajv";
+import { Ajv } from "ajv";
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { whip } from "..";
-import { config } from "../config";
-import { whipUsecase } from "../dependencies";
-
-const { offerParams, responseHeaders, iceParams } = whip;
+import { config } from "../config.js";
+import { whipUsecase } from "../dependencies.js";
+import {
+  type IceParams,
+  type OfferParams,
+  iceParams,
+  offerParams,
+  responseHeaders,
+} from "../imports/whipSchema.js";
 
 const ajv = new Ajv();
 
@@ -12,7 +16,7 @@ const checkOfferRequestBody = ajv.compile(offerParams.body);
 
 export async function whipOffer(
   req: FastifyRequest<{
-    Body: whip.OfferParams["body"];
+    Body: OfferParams["body"];
   }>,
   reply: FastifyReply,
 ): Promise<void> {
@@ -24,7 +28,7 @@ export async function whipOffer(
 
     const { answer, etag, id } = await whipUsecase.createSession(offer);
 
-    const responseBody: whip.OfferParams["responseBody"] = answer;
+    const responseBody: OfferParams["responseBody"] = answer;
 
     const location = `${config.endpoint}/whip/resource/${id}`;
 
@@ -44,9 +48,9 @@ const checkResourceRequestBody = ajv.compile(iceParams.body);
 
 export async function whipIce(
   req: FastifyRequest<{
-    Body: whip.IceParams["body"];
-    Headers: whip.IceParams["params"];
-    Params: whip.IceParams["params"];
+    Body: IceParams["body"];
+    Headers: IceParams["params"];
+    Params: IceParams["params"];
   }>,
   reply: FastifyReply,
 ): Promise<void> {

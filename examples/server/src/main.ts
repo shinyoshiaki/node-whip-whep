@@ -1,7 +1,7 @@
 import fastify from "fastify";
-import { config } from "./config";
-import { setup } from "./dependencies";
-import { registerExternalRoutes as registerRoutes } from "./routes";
+import { config } from "./config.js";
+import { setup } from "./dependencies.js";
+import { registerExternalRoutes as registerRoutes } from "./routes.js";
 
 const server = fastify({});
 

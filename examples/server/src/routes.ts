@@ -2,20 +2,31 @@ import cors from "@fastify/cors";
 import type { FastifyInstance } from "fastify";
 import { FastifySSEPlugin } from "fastify-sse-v2";
 
-import { whep, whip } from ".";
 import {
   whepIce,
   whepLayer,
   whepOffer,
   whepSse,
   whepSseStream,
-} from "./controller/whep";
-import { whipIce, whipOffer } from "./controller/whip";
+} from "./controller/whep.js";
+import { whipIce, whipOffer } from "./controller/whip.js";
+import {
+  layerEndpoint,
+  responseHeaders,
+  sseEndpoint,
+  sseStreamPath,
+  iceEndpoint as whepIceEndpoint,
+  offerEndpoint as whepOfferEndpoint,
+} from "./imports/whepSchema.js";
+import {
+  iceEndpoint as whipIceEndpoint,
+  offerEndpoint as whipOfferEndpoint,
+} from "./imports/whipSchema.js";
 
 export async function registerExternalRoutes(server: FastifyInstance) {
   await server.register(cors, {
     origin: true,
-    exposedHeaders: Object.values(whep.responseHeaders),
+    exposedHeaders: Object.values(responseHeaders),
   });
   server.register(FastifySSEPlugin);
 
@@ -34,14 +45,14 @@ export async function registerExternalRoutes(server: FastifyInstance) {
     },
   );
 
-  server.post(convertPath(whep.offerEndpoint.path), whepOffer);
-  server.patch(convertPath(whep.iceEndpoint.path), whepIce);
-  server.post(convertPath(whep.sseEndpoint.path), whepSse);
-  server.get(convertPath(whep.sseStreamPath), whepSseStream);
-  server.post(convertPath(whep.layerEndpoint.path), whepLayer);
+  server.post(convertPath(whepOfferEndpoint.path), whepOffer);
+  server.patch(convertPath(whepIceEndpoint.path), whepIce);
+  server.post(convertPath(sseEndpoint.path), whepSse);
+  server.get(convertPath(sseStreamPath), whepSseStream);
+  server.post(convertPath(layerEndpoint.path), whepLayer);
 
-  server.post(convertPath(whip.offerEndpoint.path), whipOffer);
-  server.patch(convertPath(whip.iceEndpoint.path), whipIce);
+  server.post(convertPath(whipOfferEndpoint.path), whipOffer);
+  server.patch(convertPath(whipIceEndpoint.path), whipIce);
 }
 
 function convertPath(openApiPath: string): string {

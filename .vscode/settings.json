@@ -3,6 +3,7 @@
     "Depacketize",
     "livetech",
     "openapi",
+    "packetization",
     "sdpfrag",
     "ufrag",
     "weblive",

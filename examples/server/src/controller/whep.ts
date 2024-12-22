@@ -1,13 +1,10 @@
-import { on } from "events";
-import Ajv from "ajv";
+import { Ajv } from "ajv";
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { whep, whepSession } from "..";
-
-import { EventEmitter } from "stream";
-import { config } from "../config";
-import { whepUsecase } from "../dependencies";
-
-const {
+import {
+  type IceParams,
+  type LayerParams,
+  type OfferParams,
+  type SseParams,
   acceptPatch,
   buildLink,
   ianaLayer,
@@ -17,8 +14,11 @@ const {
   offerParams,
   responseHeaders,
   sseParams,
-  supportedEvents,
-} = { ...whep, ...whepSession };
+} from "../imports/whepSchema.js";
+
+import { config } from "../config.js";
+import { whepUsecase } from "../dependencies.js";
+import { supportedEvents } from "../imports/whep.js";
 
 const ajv = new Ajv();
 
@@ -26,7 +26,7 @@ const checkOfferRequestBody = ajv.compile(offerParams.body);
 
 export async function whepOffer(
   req: FastifyRequest<{
-    Body: whep.OfferParams["body"];
+    Body: OfferParams["body"];
   }>,
   reply: FastifyReply,
 ): Promise<void> {
@@ -36,7 +36,7 @@ export async function whepOffer(
     const offer = req.body;
     const { answer, etag, id } = await whepUsecase.createSession(offer);
 
-    const responseBody: whep.OfferParams["responseBody"] = answer;
+    const responseBody: OfferParams["responseBody"] = answer;
 
     const location = `${config.endpoint}/whep/resource/${id}`;
 
@@ -68,9 +68,9 @@ const checkResourceRequestBody = ajv.compile(iceParams.body);
 
 export async function whepIce(
   req: FastifyRequest<{
-    Body: whep.IceParams["body"];
-    Headers: whep.IceParams["params"];
-    Params: whep.IceParams["params"];
+    Body: IceParams["body"];
+    Headers: IceParams["params"];
+    Params: IceParams["params"];
   }>,
   reply: FastifyReply,
 ): Promise<void> {
@@ -92,8 +92,8 @@ const checkSseRequestBody = ajv.compile(sseParams.body);
 
 export async function whepSse(
   req: FastifyRequest<{
-    Body: whep.SseParams["body"];
-    Params: whep.SseParams["params"];
+    Body: SseParams["body"];
+    Params: SseParams["params"];
   }>,
   reply: FastifyReply,
 ): Promise<void> {
@@ -119,7 +119,7 @@ export async function whepSse(
 
 export async function whepSseStream(
   req: FastifyRequest<{
-    Params: whep.SseParams["params"];
+    Params: SseParams["params"];
   }>,
   reply: FastifyReply,
 ): Promise<void> {
@@ -154,8 +154,8 @@ const checkLayerRequestBody = ajv.compile(layerParams.body);
 
 export async function whepLayer(
   req: FastifyRequest<{
-    Body: whep.LayerParams["body"];
-    Params: whep.LayerParams["params"];
+    Body: LayerParams["body"];
+    Params: LayerParams["params"];
   }>,
   reply: FastifyReply,
 ): Promise<void> {

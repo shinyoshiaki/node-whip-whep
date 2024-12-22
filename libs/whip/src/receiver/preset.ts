@@ -1,4 +1,4 @@
-import { RTCRtpCodecParameters } from "werift";
+import { RTCRtpCodecParameters } from "../imports/werift.js";
 
 export const h264 = new RTCRtpCodecParameters({
   mimeType: "video/h264",

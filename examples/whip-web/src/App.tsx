@@ -1,7 +1,7 @@
-import { WHIPClient } from ".";
+import { WhipSender } from "./imports/whip.js";
 
 //Create whep client
-const whip = new WHIPClient();
+const whip = new WhipSender();
 
 function App() {
   const play = async () => {

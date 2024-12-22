@@ -1,5 +1,5 @@
-import { Static, Type } from "@sinclair/typebox";
-import {
+import { type Static, Type } from "@sinclair/typebox";
+import type {
   ParameterObject,
   PathItemObject,
   ResponseObject,
@@ -44,7 +44,7 @@ export interface OfferParams {
 }
 
 export const buildLink = (
-  arr: { link: string; rel: string; events?: string }[]
+  arr: { link: string; rel: string; events?: string }[],
 ) => {
   let res = "";
   for (const { link, rel, events } of arr) {

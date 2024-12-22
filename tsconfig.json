@@ -3,7 +3,8 @@
     "target": "ES2022",
     "module": "NodeNext",
     "lib": [
-      "esnext"
+      "esnext",
+      "DOM"
     ],
     "declaration": true,
     "outDir": "lib",

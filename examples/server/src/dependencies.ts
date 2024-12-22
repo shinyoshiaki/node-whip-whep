@@ -1,7 +1,7 @@
-import { WhipSource } from "./domain/whip";
-import { SessionRepository } from "./infrastructure/sessionRepository";
-import { WhepUsecase } from "./usecase/whep";
-import { WhipUsecase } from "./usecase/whip";
+import { WhipSource } from "./domain/whip.js";
+import { SessionRepository } from "./infrastructure/sessionRepository.js";
+import { WhepUsecase } from "./usecase/whep.js";
+import { WhipUsecase } from "./usecase/whip.js";
 
 export const sessionRepository = new SessionRepository();
 export const whipSource = new WhipSource();
