@@ -1,3 +1,5 @@
+import { type RTCPeerConnection } from "werift";
+
 export class WHIPClient {
   iceUsername: string;
   icePassword: string;
