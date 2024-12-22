@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "commonjs",
-    "lib": ["esnext"],
+    "module": "NodeNext",
+    "lib": [
+      "esnext"
+    ],
     "declaration": true,
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
@@ -15,6 +17,6 @@
     "strictNullChecks": true,
     // "noImplicitAny": false,
     // "strict": true,
-    "useDefineForClassFields": true
+    "useDefineForClassFields": false
   }
 }

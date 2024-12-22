@@ -2,6 +2,7 @@
   "name": "@shinyoshiaki/whip-client",
   "version": "0.0.1",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "build": "tsc -p ./tsconfig.build.json",

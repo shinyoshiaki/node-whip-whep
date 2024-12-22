@@ -1,4 +1,4 @@
-import { type RTCPeerConnection } from "werift";
+import type { RTCIceCandidate, RTCPeerConnection } from "./imports/werift.js";
 
 export class WHIPClient {
   iceUsername: string;
@@ -9,7 +9,6 @@ export class WHIPClient {
   token?: string;
   iceTrickeTimeout: any;
   resourceURL: URL;
-  restartIce: boolean;
 
   async publish(pc: RTCPeerConnection, url: string, token?: string) {
     //If already publishing
@@ -20,7 +19,7 @@ export class WHIPClient {
     this.pc = pc;
 
     //Listen for state change events
-    pc.onconnectionstatechange = (event) => {
+    pc.onconnectionstatechange = () => {
       switch (pc.connectionState) {
         case "connected":
           // The connection has become fully connected
@@ -39,7 +38,7 @@ export class WHIPClient {
     pc.onicecandidate = (event) => {
       if (event.candidate) {
         //Ignore candidates not from the first m line
-        if (event.candidate.sdpMLineIndex ?? 0 > 0)
+        if ((event.candidate.sdpMLineIndex ?? 0) > 0)
           //Skip
           return;
         //Store candidate
@@ -149,7 +148,7 @@ export class WHIPClient {
           for (const [key, value] of Object.entries(server.params)) {
             //Get key in cammel case
             const cammelCase = key.replace(/([-_][a-z])/gi, ($1) =>
-              $1.toUpperCase().replace("-", "").replace("_", "")
+              $1.toUpperCase().replace("-", "").replace("_", ""),
             );
             //Unquote value and set them
             iceServer[cammelCase] = value;
@@ -192,51 +191,23 @@ export class WHIPClient {
     await pc.setRemoteDescription({ type: "answer", sdp: answer });
   }
 
-  restart() {
-    //Set restart flag
-    this.restartIce = true;
-
-    //Schedule trickle on next tick
-    if (!this.iceTrickeTimeout)
-      this.iceTrickeTimeout = setTimeout(() => this.trickle(), 0);
-  }
-
   async trickle() {
     //Clear timeout
     this.iceTrickeTimeout = null;
 
     //Check if there is any pending data
-    if (
-      !(this.candidates.length || this.endOfcandidates || this.restartIce) ||
-      !this.resourceURL
-    )
+    if (!(this.candidates.length || this.endOfcandidates) || !this.resourceURL)
       //Do nothing
       return;
 
     //Get data
     const candidates = this.candidates;
-    let endOfcandidates = this.endOfcandidates;
-    const restartIce = this.restartIce;
+    const endOfcandidates = this.endOfcandidates;
 
     //Clean pending data before async operation
     this.candidates = [];
     this.endOfcandidates = false;
-    this.restartIce = false;
 
-    //If we need to restart
-    if (restartIce) {
-      //Restart ice
-      this.pc.restartIce();
-      //Create a new offer
-      const offer = await this.pc.createOffer({ iceRestart: true });
-      //Update ice
-      this.iceUsername = offer.sdp!.match(/a=ice-ufrag:(.*)\r\n/)![1];
-      this.icePassword = offer.sdp!.match(/a=ice-pwd:(.*)\r\n/)![1];
-      //Set it
-      await this.pc.setLocalDescription(offer);
-      //Clean end of candidates flag as new ones will be retrieved
-      endOfcandidates = false;
-    }
     //Prepare fragment
     let fragment =
       "a=ice-ufrag:" +
@@ -318,11 +289,11 @@ export class WHIPClient {
       //Patch
       remoteDescription.sdp = remoteDescription.sdp.replaceAll(
         /(a=ice-ufrag:)(.*)\r\n/gm,
-        "$1" + iceUsername + "\r\n"
+        "$1" + iceUsername + "\r\n",
       );
       remoteDescription.sdp = remoteDescription.sdp.replaceAll(
         /(a=ice-pwd:)(.*)\r\n/gm,
-        "$1" + icePassword + "\r\n"
+        "$1" + icePassword + "\r\n",
       );
 
       //Set it

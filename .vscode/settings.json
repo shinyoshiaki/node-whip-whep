@@ -7,5 +7,8 @@
     "ufrag",
     "weblive",
     "werift"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "biome.lsp.bin": "node_modules/@biomejs/biome/bin/biome",
+  "prettier.enable": false
 }

@@ -43,5 +43,8 @@
   "packageManager": "npm@8.12.2",
   "engines": {
     "node": ">=16"
+  },
+  "dependencies": {
+    "@biomejs/biome": "^1.9.4"
   }
 }
