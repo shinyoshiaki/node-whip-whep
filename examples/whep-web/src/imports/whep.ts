@@ -1,1 +1,1 @@
-export * from "../../../../libs/whep/src/index.js";
+export * from "../../../../libs/whep/src/receiver/index.js";

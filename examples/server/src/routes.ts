@@ -23,6 +23,8 @@ import {
   offerEndpoint as whipOfferEndpoint,
 } from "./imports/whipSchema.js";
 
+export const whepBase = `/whip/:whip`;
+
 export async function registerExternalRoutes(server: FastifyInstance) {
   await server.register(cors, {
     origin: true,
@@ -48,7 +50,6 @@ export async function registerExternalRoutes(server: FastifyInstance) {
   server.post(convertPath(whipOfferEndpoint.path), whipOffer);
   server.patch(convertPath(whipIceEndpoint.path), whipIce);
 
-  const whepBase = `/whip/:whip/`;
   server.post(whepBase + convertPath(whepOfferEndpoint.path), whepOffer);
   server.patch(whepBase + convertPath(whepIceEndpoint.path), whepIce);
   server.post(whepBase + convertPath(sseEndpoint.path), whepSse);

@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { WhipSender } from "./imports/whip.js";
 
 //Create whep client
 const whip = new WhipSender();
 
 function App() {
+  const [id, setId] = useState<string | null>(null);
+
   const play = async () => {
     const pc = new RTCPeerConnection();
 
@@ -28,11 +31,16 @@ function App() {
 
     //Start viewing
     await whip.publish(pc, url);
+    console.log(whip.resourceURL);
+    const [, , , id] = whip.resourceURL.pathname.split("/");
+    console.log(id);
+    setId(id);
   };
 
   return (
     <div>
       <button onClick={play}>publish</button>
+      <p>id:{id}</p>
     </div>
   );
 }

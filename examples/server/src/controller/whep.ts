@@ -19,6 +19,7 @@ import {
 import { config } from "../config.js";
 import { whepUsecase } from "../dependencies.js";
 import { supportedEvents } from "../imports/whep.js";
+import { whepBase } from "../routes.js";
 
 const ajv = new Ajv();
 
@@ -43,7 +44,7 @@ export async function whepOffer(
 
     const responseBody: OfferParams["responseBody"] = answer;
 
-    const location = `${config.endpoint}/whep/resource/${id}`;
+    const location = `${config.endpoint}${whepBase}/whep/resource/${id}`;
 
     await reply
       .code(201)
@@ -109,7 +110,7 @@ export async function whepSse(
     const { id } = req.params;
 
     whepUsecase.requestSSE({ events: request, id });
-    const location = `${config.endpoint}/whep/resource/${id}/sse/event-stream`;
+    const location = `${config.endpoint}${whepBase}/whep/resource/${id}/sse/event-stream`;
 
     await reply
       .code(201)
