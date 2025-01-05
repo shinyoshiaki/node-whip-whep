@@ -14,9 +14,10 @@
   },
   "dependencies": {
     "@fastify/cors": "^8.3.0",
-    "fastify-sse-v2": "^3.1.1",
     "ajv": "^8.12.0",
-    "fastify": "^4.19.1"
-  },
-  "devDependencies": {}
+    "fastify": "^4.19.1",
+    "fastify-sse-v2": "^3.1.1",
+    "sdp-transform": "^2.15.0",
+    "werift": "^0.21.1"
+  }
 }

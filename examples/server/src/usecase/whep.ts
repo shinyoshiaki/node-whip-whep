@@ -1,16 +1,22 @@
-import { sessionRepository, whipSource } from "../dependencies.js";
 import type { RequestLayer } from "../imports/whep.js";
+import type { SessionRepository } from "../infrastructure/sessionRepository.js";
 
 export class WhepUsecase {
-  createSession = async (sdp: string) => {
-    console.log("createSession");
+  constructor(private sessionRepository: SessionRepository) {}
 
-    const session = sessionRepository.createSession({
-      video: whipSource.video,
-      audio: whipSource.audio,
+  createSession = async ({ sdp, id }: { id: string; sdp: string }) => {
+    console.log("createSession");
+    const whip = this.sessionRepository.getWhipSession(id);
+    if (!whip) {
+      throw new Error("whip not found");
+    }
+
+    const whep = this.sessionRepository.createWhepSession({
+      video: whip.video,
+      audio: whip.audio,
     });
-    const { answer, etag } = await session.setRemoteOffer(sdp);
-    return { answer, etag, id: session.id };
+    const { answer, etag } = await whep.setRemoteOffer(sdp);
+    return { answer, etag, id: whep.id };
   };
 
   iceRequest = async ({
@@ -24,36 +30,36 @@ export class WhepUsecase {
   }) => {
     console.log("iceRequest", { id, etag });
 
-    const session = sessionRepository.getSession(id);
-    if (!session) {
+    const whep = this.sessionRepository.getWhepSession(id);
+    if (!whep) {
       throw new Error("session not found");
     }
 
-    await session.iceRequest({ etag, candidate });
+    await whep.iceRequest({ etag, candidate });
   };
 
   requestSSE = ({ events, id }: { events: string[]; id: string }) => {
     console.log("requestSSE", { events, id });
 
-    const session = sessionRepository.getSession(id);
-    if (!session) {
+    const whep = this.sessionRepository.getWhepSession(id);
+    if (!whep) {
       throw new Error("session not found");
     }
 
-    session.requestEvent(events);
+    whep.requestEvent(events);
   };
 
   startSSEStream = ({ id }: { id: string }) => {
     console.log("startSSEStream", { id });
 
-    const session = sessionRepository.getSession(id);
-    if (!session) {
+    const whep = this.sessionRepository.getWhepSession(id);
+    if (!whep) {
       throw new Error("session not found");
     }
 
     return {
-      event: session.event,
-      startEvent: session.streamEvent,
+      event: whep.event,
+      startEvent: whep.streamEvent,
     };
   };
 
@@ -66,10 +72,10 @@ export class WhepUsecase {
   }) => {
     console.log("requestLayer", { id, request });
 
-    const session = sessionRepository.getSession(id);
-    if (!session) {
+    const whep = this.sessionRepository.getWhepSession(id);
+    if (!whep) {
       throw new Error("session not found");
     }
-    session.requestLayer(request);
+    whep.requestLayer(request);
   };
 }

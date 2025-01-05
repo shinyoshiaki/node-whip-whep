@@ -9,11 +9,14 @@ import {
   useSdesRTPStreamId,
 } from "../imports/werift.js";
 
-export class WhepReceiver {
+export class WhipReceiver {
   readonly id = v4();
   etag = v4();
   pc: RTCPeerConnection;
-  onTrack = new Event<[MediaStreamTrack]>();
+  audio?: MediaStreamTrack;
+  video: MediaStreamTrack[] = [];
+
+  readonly onTrack = new Event<[MediaStreamTrack]>();
 
   constructor(config: Partial<PeerConfig> = {}) {
     this.pc = new RTCPeerConnection({
@@ -34,6 +37,13 @@ export class WhepReceiver {
     this.pc.onTransceiverAdded.subscribe((transceiver) => {
       transceiver.onTrack.subscribe((track) => {
         console.log("onTrack", track.kind);
+
+        if (track.kind === "audio") {
+          this.audio = track;
+        } else {
+          this.video.push(track);
+        }
+
         this.onTrack.execute(track);
 
         track.onReceiveRtp.once((rtp) => {

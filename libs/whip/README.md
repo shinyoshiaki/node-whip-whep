@@ -2,8 +2,10 @@ https://github.com/medooze/whip-whep-js
 
 # Example
 
+## browser
+
 ```js
-import { WHIPClient } from "whip.js";
+import { WhipSender } from "@shinyoshiaki/whip";
 
 //Get mic+cam
 const stream = await navigator.mediaDevices.getUserMedia({
@@ -21,7 +23,7 @@ for (const track of stream.getTracks()) {
 }
 
 //Create whip client
-const whip = new WHIPClient();
+const whip = new WhipSender();
 
 const url = "https://whip.test/whip/endpoint";
 const token =

@@ -6,6 +6,7 @@ const whep = new WhepReceiver();
 
 function App() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [whip, setWhip] = useState("");
   const [layers, setLayers] = useState<{
     [mid: string]: { layers: { encodingId: string }[] };
   }>({});
@@ -28,7 +29,7 @@ function App() {
       }
     };
 
-    const url = "http://localhost:8801/whep";
+    const url = `http://localhost:8801/whip/${whip}/whep`;
 
     whep.addEventListener("message", (e: any) => {
       console.log(e);
@@ -44,6 +45,13 @@ function App() {
 
   return (
     <div>
+      <input
+        placeholder="whip id"
+        onChange={(e) => {
+          setWhip(e.target.value);
+        }}
+        value={whip}
+      />
       <button onClick={play}>play</button>
       <video ref={videoRef} controls autoPlay />
       {Object.entries(layers).map(([mid, info]) => (

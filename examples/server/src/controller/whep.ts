@@ -27,14 +27,19 @@ const checkOfferRequestBody = ajv.compile(offerParams.body);
 export async function whepOffer(
   req: FastifyRequest<{
     Body: OfferParams["body"];
+    Params: { whip: string };
   }>,
   reply: FastifyReply,
 ): Promise<void> {
   try {
     checkOfferRequestBody(req.body);
 
-    const offer = req.body;
-    const { answer, etag, id } = await whepUsecase.createSession(offer);
+    const sdp = req.body;
+    const { whip } = req.params;
+    const { answer, etag, id } = await whepUsecase.createSession({
+      id: whip,
+      sdp,
+    });
 
     const responseBody: OfferParams["responseBody"] = answer;
 

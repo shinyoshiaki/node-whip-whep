@@ -45,14 +45,15 @@ export async function registerExternalRoutes(server: FastifyInstance) {
     },
   );
 
-  server.post(convertPath(whepOfferEndpoint.path), whepOffer);
-  server.patch(convertPath(whepIceEndpoint.path), whepIce);
-  server.post(convertPath(sseEndpoint.path), whepSse);
-  server.get(convertPath(sseStreamPath), whepSseStream);
-  server.post(convertPath(layerEndpoint.path), whepLayer);
-
   server.post(convertPath(whipOfferEndpoint.path), whipOffer);
   server.patch(convertPath(whipIceEndpoint.path), whipIce);
+
+  const whepBase = `/whip/:whip/`;
+  server.post(whepBase + convertPath(whepOfferEndpoint.path), whepOffer);
+  server.patch(whepBase + convertPath(whepIceEndpoint.path), whepIce);
+  server.post(whepBase + convertPath(sseEndpoint.path), whepSse);
+  server.get(whepBase + convertPath(sseStreamPath), whepSseStream);
+  server.post(whepBase + convertPath(layerEndpoint.path), whepLayer);
 }
 
 function convertPath(openApiPath: string): string {

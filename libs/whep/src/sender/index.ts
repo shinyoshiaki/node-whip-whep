@@ -178,6 +178,7 @@ export class WhepSender {
           Number(candidate.priority),
           candidate.transport,
           candidate.type,
+          candidate.generation,
         ).toJSON(),
       );
     }
