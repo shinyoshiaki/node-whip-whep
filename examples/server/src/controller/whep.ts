@@ -66,6 +66,7 @@ export async function whepOffer(
       })
       .send(responseBody);
   } catch (error) {
+    console.log(error);
     await reply.code(500).send({ error });
   }
 }
@@ -90,6 +91,7 @@ export async function whepIce(
 
     await reply.code(204).send();
   } catch (error) {
+    console.log(error);
     await reply.code(500).send({ error });
   }
 }
@@ -119,6 +121,7 @@ export async function whepSse(
       })
       .send();
   } catch (error) {
+    console.log(error);
     await reply.code(500).send({ error });
   }
 }
@@ -152,6 +155,7 @@ export async function whepSseStream(
       startEvent();
     });
   } catch (error) {
+    console.log(error);
     await reply.code(500).send({ error });
   }
 }
@@ -175,6 +179,7 @@ export async function whepLayer(
 
     await reply.code(200).send();
   } catch (error) {
+    console.log(error);
     await reply.code(500).send({ error });
   }
 }

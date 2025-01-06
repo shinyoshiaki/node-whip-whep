@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { WhipSender } from "./imports/whip.js";
 
+const url = "http://localhost:8801/whip";
 //Create whep client
 const whip = new WhipSender();
 
@@ -27,12 +28,10 @@ function App() {
     });
     pc.addTrack(audio, stream);
 
-    const url = "http://localhost:8801/whip";
-
     //Start viewing
     await whip.publish(pc, url);
     console.log(whip.resourceURL);
-    const [, , , id] = whip.resourceURL.pathname.split("/");
+    const id = whip.resourceURL.pathname.split("/").at(-1);
     console.log(id);
     setId(id);
   };

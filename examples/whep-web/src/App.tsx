@@ -17,7 +17,7 @@ function App() {
     const pc = new RTCPeerConnection();
 
     //Add recv only transceivers
-    pc.addTransceiver("audio");
+    // pc.addTransceiver("audio");
     pc.addTransceiver("video");
 
     pc.ontrack = (event) => {

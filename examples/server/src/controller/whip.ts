@@ -40,6 +40,7 @@ export async function whipOffer(
       })
       .send(responseBody);
   } catch (error) {
+    console.log(error);
     await reply.code(500).send({ error });
   }
 }
@@ -64,6 +65,7 @@ export async function whipIce(
 
     await reply.code(204).send();
   } catch (error) {
+    console.log(error);
     await reply.code(500).send({ error });
   }
 }

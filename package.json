@@ -17,6 +17,7 @@
     "doc": "npm run doc --workspaces --if-present",
     "server": "cd examples/server && npm run dev",
     "whip-web": "cd examples/whip-web && npm run dev",
+    "whip-node": "cd examples/whip-node && npm run dev",
     "whep-web": "cd examples/whep-web && npm run dev"
   },
   "dependencies": {

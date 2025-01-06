@@ -1,6 +1,7 @@
 import {
   type MediaStreamTrack,
   RTCRtpCodecParameters,
+  useVP8,
 } from "../imports/werift.js";
 import { WhepSender } from "../imports/whep.js";
 import { WhipReceiver } from "../imports/whip.js";
@@ -12,17 +13,7 @@ export class SessionRepository {
   createWhipSession() {
     const session = new WhipReceiver({
       codecs: {
-        video: [
-          new RTCRtpCodecParameters({
-            mimeType: "video/H264",
-            clockRate: 90000,
-            rtcpFeedback: [
-              { type: "nack" },
-              { type: "nack", parameter: "pli" },
-              { type: "goog-remb" },
-            ],
-          }),
-        ],
+        video: [useVP8()],
         audio: [
           new RTCRtpCodecParameters({
             mimeType: "audio/opus",
@@ -44,21 +35,11 @@ export class SessionRepository {
     audio?: MediaStreamTrack;
   }) {
     const session = new WhepSender({
-      video,
-      audio,
+      video: video as any,
+      audio: audio as any,
       config: {
         codecs: {
-          video: [
-            new RTCRtpCodecParameters({
-              mimeType: "video/H264",
-              clockRate: 90000,
-              rtcpFeedback: [
-                { type: "nack" },
-                { type: "nack", parameter: "pli" },
-                { type: "goog-remb" },
-              ],
-            }),
-          ],
+          video: [useVP8()],
           audio: [
             new RTCRtpCodecParameters({
               mimeType: "audio/opus",
