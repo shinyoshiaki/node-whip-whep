@@ -3,10 +3,10 @@ import { type MediaAttributes, parse, write } from "sdp-transform";
 import { v4 } from "uuid";
 import {
   IceCandidate,
+  type MediaStreamTrack,
   type PeerConfig,
   RTCPeerConnection,
   useSdesRTPStreamId,
-  type MediaStreamTrack,
 } from "../imports/werift.js";
 
 export class WhipReceiver {

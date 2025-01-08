@@ -1,7 +1,7 @@
 import {
-  type werift,
   RTCRtpCodecParameters,
   useVP8,
+  type werift,
 } from "../imports/werift.js";
 import { WhepSender } from "../imports/whep.js";
 import { WhipReceiver } from "../imports/whip.js";

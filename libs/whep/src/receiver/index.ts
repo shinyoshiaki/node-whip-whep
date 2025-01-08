@@ -1,3 +1,5 @@
+import type { werift } from "../imports/werift.js";
+
 const ianaSSE = "urn:ietf:params:whep:ext:core:server-sent-events";
 export const ianaLayer = "urn:ietf:params:whep:ext:core:layer";
 
@@ -6,7 +8,7 @@ export class WhepReceiver extends EventTarget {
   icePassword?: string;
   candidates: RTCIceCandidate[] = [];
   endOfCandidates = false;
-  pc?: RTCPeerConnection;
+  pc?: RTCPeerConnection | werift.RTCPeerConnection;
   token?: string;
   iceTrickleTimeout: any;
   resourceURL?: URL;
@@ -27,7 +29,11 @@ export class WhepReceiver extends EventTarget {
     return sdp.match(/a=ice-pwd:(.*)\r\n/)![1];
   }
 
-  async view(pc: RTCPeerConnection, url: string, token?: string) {
+  async view(
+    pc: RTCPeerConnection | werift.RTCPeerConnection,
+    url: string,
+    token?: string,
+  ) {
     //If already publishing
     if (this.pc) throw new Error("Already viewing");
 
@@ -230,7 +236,7 @@ export class WhepReceiver extends EventTarget {
       //If any configured
       if (config.iceServers.length)
         //Set it
-        pc.setConfiguration(config);
+        pc.setConfiguration(config as any);
     }
 
     //Get the SDP answer
@@ -241,7 +247,7 @@ export class WhepReceiver extends EventTarget {
       this.iceTrickleTimeout = setTimeout(() => this.trickle(), 0);
 
     //Set local description
-    await pc.setLocalDescription(offer);
+    await pc.setLocalDescription(offer as any);
 
     // TODO: chrome is returning a wrong value, so don't use it for now
     //try {
@@ -302,7 +308,7 @@ export class WhepReceiver extends EventTarget {
       this.iceUsername = this.iceUsernameFromSDP(offer.sdp!);
       this.icePassword = this.icePasswordFromSDP(offer.sdp!);
       //Set it
-      await this.pc.setLocalDescription(offer);
+      await this.pc.setLocalDescription(offer as any);
       //Clean end of candidates flag as new ones will be retrieved
       endOfCandidates = false;
     }
@@ -337,7 +343,7 @@ export class WhepReceiver extends EventTarget {
       //Get mid for candidate
       const mid = candidate.sdpMid!;
       //Get associated transceiver
-      const transceiver = transceivers.find((t) => t.mid == mid)!;
+      const transceiver = (transceivers as any).find((t) => t.mid == mid)!;
       //Get media
       let media = medias[mid];
       //If not found yet

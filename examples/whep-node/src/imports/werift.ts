@@ -4,13 +4,7 @@ import type * as nonstandard from "../../../../submodules/werift/packages/webrtc
 
 const require = createRequire(import.meta.url);
 
-const {
-  MediaStreamTrack,
-  RTCPeerConnection,
-  useVP8,
-  randomPort,
-  IceCandidate,
-} =
+const { MediaStreamTrack, RTCPeerConnection, useVP8, randomPort } =
   require("../../../../submodules/werift/packages/webrtc/src/index.js") as typeof werift;
 const { navigator } =
   require("../../../../submodules/werift/packages/webrtc/src/nonstandard/index.js") as typeof nonstandard;
@@ -22,7 +16,6 @@ export {
   randomPort,
   navigator,
   type werift,
-  IceCandidate,
 };
 
 // export * from "werift";

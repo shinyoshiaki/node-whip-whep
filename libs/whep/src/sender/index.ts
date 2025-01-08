@@ -3,8 +3,7 @@ import { Event } from "rx.mini";
 import { type MediaAttributes, parse } from "sdp-transform";
 import {
   IceCandidate,
-  type MediaStreamTrack,
-  type PeerConfig,
+  type werift,
   RTCPeerConnection,
 } from "../imports/werift.js";
 
@@ -48,16 +47,16 @@ export const supportedEvents = ["layers"];
 
 export class WhepSender {
   readonly id = randomUUID();
-  pc: RTCPeerConnection;
+  pc: werift.RTCPeerConnection;
   etag = randomUUID();
   event = new Event<[{ event: string; data: Events }]>();
   eventList: string[] = [];
 
   constructor(
     private props: {
-      video?: MediaStreamTrack[];
-      audio?: MediaStreamTrack;
-      config?: Partial<PeerConfig>;
+      video?: werift.MediaStreamTrack[];
+      audio?: werift.MediaStreamTrack;
+      config?: Partial<werift.PeerConfig>;
     },
   ) {
     this.pc = new RTCPeerConnection(props.config);
@@ -70,7 +69,7 @@ export class WhepSender {
   }
 
   get tracks() {
-    const tracks: MediaStreamTrack[] = [];
+    const tracks: werift.MediaStreamTrack[] = [];
     if ((this.props.video ?? []).length > 0) {
       tracks.push(this.props.video![0]);
     }

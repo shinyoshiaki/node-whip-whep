@@ -1,10 +1,10 @@
+import { $ } from "zx";
 import {
   RTCPeerConnection,
-  randomPort,
   navigator,
+  randomPort,
   useVP8,
 } from "./imports/werift.js";
-import { $ } from "zx";
 import { WhipSender } from "./imports/whip.js";
 
 const url = "http://localhost:8801/whip";

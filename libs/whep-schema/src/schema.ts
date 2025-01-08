@@ -5,7 +5,7 @@ import {
   layerEndpoint,
   offerEndpoint,
   sseEndpoint,
-} from "./endpoint";
+} from "./endpoint.js";
 
 export const openapiJson = new OpenApiBuilder()
   .addInfo({ title: "whep", version: "0.0.1" })
