@@ -1,0 +1,25 @@
+{
+  "name": "@shinyoshiaki/whep",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.build.json",
+    "type": "tsc -p ./tsconfig.json --noEmit",
+    "lint": "biome check --write src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shinyoshiaki/weblive.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shinyoshiaki/weblive/issues"
+  },
+  "homepage": "https://github.com/shinyoshiaki/weblive#readme",
+  "dependencies": {
+    "werift": "^0.21.1"
+  }
+}

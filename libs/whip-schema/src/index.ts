@@ -1,2 +1,2 @@
-export * from "./endpoint";
-export * from "./schema";
+export * from "./endpoint.js";
+export * from "./schema.js";

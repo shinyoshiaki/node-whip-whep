@@ -1,14 +1,16 @@
 {
-  "name": "@livetech/whep-schema",
+  "name": "@shinyoshiaki/whep-schema",
   "version": "0.0.1",
+  "private": true,
   "description": "",
   "license": "ISC",
   "author": "",
-  "private": true,
+  "type": "module",
   "scripts": {
     "doc": "run-s schema html",
-    "schema": "ts-node scripts/openapi.ts",
     "html": "npx redoc-cli bundle ./docs/openapi.json -o ./docs/openapi.html",
+    "lint": "biome check --write src",
+    "schema": "ts-node scripts/openapi.ts",
     "type": "tsc -p ./tsconfig.json --noEmit"
   },
   "dependencies": {

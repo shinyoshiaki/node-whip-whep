@@ -1,9 +1,9 @@
 import { OpenApiBuilder } from "openapi3-ts/oas31";
 
 import {
+  iceEndpoint,
   layerEndpoint,
   offerEndpoint,
-  iceEndpoint,
   sseEndpoint,
 } from "./endpoint";
 

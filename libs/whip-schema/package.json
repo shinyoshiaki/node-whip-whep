@@ -1,9 +1,10 @@
 {
-  "name": "@livetech/whip-schema",
+  "name": "@shinyoshiaki/whip-schema",
   "version": "0.0.2",
   "description": "",
   "license": "ISC",
   "author": "",
+  "type": "module",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -13,6 +14,7 @@
     "deploy": "npm run build && npm publish --access public",
     "doc": "run-s schema html",
     "html": "npx redoc-cli bundle ./docs/openapi.json -o ./docs/openapi.html",
+    "lint": "biome check --write src",
     "schema": "ts-node scripts/openapi.ts",
     "type": "tsc -p ./tsconfig.json --noEmit"
   },
