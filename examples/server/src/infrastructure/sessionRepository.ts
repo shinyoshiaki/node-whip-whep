@@ -1,5 +1,5 @@
 import {
-  type MediaStreamTrack,
+  type werift,
   RTCRtpCodecParameters,
   useVP8,
 } from "../imports/werift.js";
@@ -31,8 +31,8 @@ export class SessionRepository {
     video,
     audio,
   }: {
-    video?: MediaStreamTrack[];
-    audio?: MediaStreamTrack;
+    video?: werift.MediaStreamTrack[];
+    audio?: werift.MediaStreamTrack;
   }) {
     const session = new WhepSender({
       video: video as any,

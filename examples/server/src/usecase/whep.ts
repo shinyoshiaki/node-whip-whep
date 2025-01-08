@@ -12,8 +12,8 @@ export class WhepUsecase {
     }
 
     const whep = this.sessionRepository.createWhepSession({
-      video: whip.video,
-      audio: whip.audio,
+      video: whip.video as any,
+      audio: whip.audio as any,
     });
     const { answer, etag } = await whep.setRemoteOffer(sdp);
     return { answer, etag, id: whep.id };
