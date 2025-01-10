@@ -4,11 +4,11 @@
     "lib": [
       "esnext",
       "DOM"
-    ]
+    ],
+    "outDir": "lib",
   },
   "include": [
     "src",
     "tests",
-    "../whip-server/src/imports"
   ]
 }
