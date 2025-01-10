@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 
 const { MediaStreamTrack, RTCPeerConnection, useVP8, randomPort } =
   require("../../../../submodules/werift/packages/webrtc/src/index.js") as typeof werift;
-const { navigator } =
+const { navigator, MediaRecorder } =
   require("../../../../submodules/werift/packages/webrtc/src/nonstandard/index.js") as typeof nonstandard;
 
 export {
@@ -15,6 +15,7 @@ export {
   useVP8,
   randomPort,
   navigator,
+  MediaRecorder,
   type werift,
 };
 

@@ -29,6 +29,6 @@ await whip.publish(pc as any, url);
 const id = whip.resourceURL.pathname.split("/").at(-1);
 console.log(id);
 
-await new Promise((resolve) => setTimeout(resolve, 60_000));
+await new Promise((resolve) => setTimeout(resolve, 60_000 * 60));
 
 await gst.kill();

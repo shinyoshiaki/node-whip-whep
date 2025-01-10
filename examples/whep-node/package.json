@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p ./tsconfig.build.json",
-    "dev": "tsx watch src/main.ts",
+    "dev": "tsx watch src/main.ts bf2be17a-88ce-482b-b37b-dc44a84124bc",
     "type": "tsc -p ./tsconfig.json --noEmit",
     "lint": "biome check --write src"
   },

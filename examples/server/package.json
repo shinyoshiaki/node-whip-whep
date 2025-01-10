@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "type": "tsc -p ./tsconfig.json --noEmit",
-    "dev": "tsx watch --tsconfig tsconfig.json src/main.ts",
+    "dev": "tsx --tsconfig tsconfig.json src/main.ts",
     "lint": "biome check --write src"
   },
   "dependencies": {

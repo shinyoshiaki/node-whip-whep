@@ -1,3 +1,4 @@
+import { EventSource } from "eventsource";
 import type { werift } from "../imports/werift.js";
 
 const ianaSSE = "urn:ietf:params:whep:ext:core:server-sent-events";
