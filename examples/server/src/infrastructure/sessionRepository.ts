@@ -3,8 +3,8 @@ import {
   useVP8,
   type werift,
 } from "../imports/werift.js";
-import { WhepSender } from "../imports/whep.js";
-import { WhipReceiver } from "../imports/whip.js";
+import { WhepSender } from "../imports/whepServer.js";
+import { WhipReceiver } from "../imports/whipServer.js";
 
 export class SessionRepository {
   private whepSessions = new Map<string, WhepSender>();

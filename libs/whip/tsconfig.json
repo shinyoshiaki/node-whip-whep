@@ -1,7 +1,14 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["esnext", "DOM"]
+    "lib": [
+      "esnext",
+      "DOM"
+    ]
   },
-  "include": ["src", "tests"]
+  "include": [
+    "src",
+    "tests",
+    "../whip-server/src/imports"
+  ]
 }

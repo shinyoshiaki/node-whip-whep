@@ -3,8 +3,8 @@ import { Event } from "rx.mini";
 import { type MediaAttributes, parse } from "sdp-transform";
 import {
   IceCandidate,
-  type werift,
   RTCPeerConnection,
+  type werift,
 } from "../imports/werift.js";
 
 export interface LayersEvent {

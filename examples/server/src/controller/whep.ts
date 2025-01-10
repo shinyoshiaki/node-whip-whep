@@ -14,11 +14,11 @@ import {
   offerParams,
   responseHeaders,
   sseParams,
-} from "../imports/whepSchema.js";
+  supportedEvents,
+} from "../imports/whepServer.js";
 
 import { config } from "../config.js";
 import { whepUsecase } from "../dependencies.js";
-import { supportedEvents } from "../imports/whep.js";
 import { whepBase } from "../routes.js";
 
 const ajv = new Ajv();

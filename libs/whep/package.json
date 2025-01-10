@@ -21,6 +21,6 @@
   "homepage": "https://github.com/shinyoshiaki/weblive#readme",
   "dependencies": {
     "eventsource": "^3.0.2",
-    "werift": "^0.21.1"
+    "werift": "^0.21.2"
   }
 }

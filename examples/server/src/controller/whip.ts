@@ -8,7 +8,7 @@ import {
   iceParams,
   offerParams,
   responseHeaders,
-} from "../imports/whipSchema.js";
+} from "../imports/whipServer.js";
 
 const ajv = new Ajv();
 

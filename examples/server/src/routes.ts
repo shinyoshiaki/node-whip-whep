@@ -17,11 +17,11 @@ import {
   sseStreamPath,
   iceEndpoint as whepIceEndpoint,
   offerEndpoint as whepOfferEndpoint,
-} from "./imports/whepSchema.js";
+} from "./imports/whepServer.js";
 import {
   iceEndpoint as whipIceEndpoint,
   offerEndpoint as whipOfferEndpoint,
-} from "./imports/whipSchema.js";
+} from "./imports/whipServer.js";
 
 export const whepBase = `/whip/:whip`;
 

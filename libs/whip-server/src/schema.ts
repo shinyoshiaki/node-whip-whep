@@ -1,3 +1,5 @@
+import { OpenApiBuilder } from "openapi3-ts/oas31";
+
 import { type Static, Type } from "@sinclair/typebox";
 import type {
   ParameterObject,
@@ -104,3 +106,9 @@ export const iceEndpoint: Endpoint = {
     },
   },
 };
+
+export const openapiJson = new OpenApiBuilder()
+  .addInfo({ title: "whip", version: "0.0.1" })
+  .addPath(offerEndpoint.path, offerEndpoint.item)
+  .addPath(iceEndpoint.path, iceEndpoint.item)
+  .getSpecAsJson();

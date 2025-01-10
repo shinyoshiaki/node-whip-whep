@@ -1,1 +1,1 @@
-export * from "../../../../libs/whip/src/sender/index.js";
+export * from "../../../../libs/whip/src/index.js";

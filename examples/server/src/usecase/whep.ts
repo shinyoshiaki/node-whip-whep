@@ -1,4 +1,4 @@
-import type { RequestLayer } from "../imports/whep.js";
+import type { RequestLayer } from "../imports/whepServer.js";
 import type { SessionRepository } from "../infrastructure/sessionRepository.js";
 
 export class WhepUsecase {
