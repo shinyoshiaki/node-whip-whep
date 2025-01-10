@@ -1,6 +1,6 @@
 import {
   RTCPeerConnection,
-  useOpus,
+  useOPUS,
   useVP8,
   type types,
 } from "../imports/werift.js";
@@ -15,7 +15,7 @@ export class SessionRepository {
     const pc = new RTCPeerConnection({
       codecs: {
         video: [useVP8()],
-        audio: [useOpus()],
+        audio: [useOPUS()],
       },
     });
     const session = new WhipReceiver(pc);
@@ -33,7 +33,7 @@ export class SessionRepository {
     const pc = new RTCPeerConnection({
       codecs: {
         video: [useVP8()],
-        audio: [useOpus()],
+        audio: [useOPUS()],
       },
     });
     const session = new WhepSender(pc, {

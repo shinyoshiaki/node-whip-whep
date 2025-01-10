@@ -22,6 +22,6 @@
   "homepage": "https://github.com/shinyoshiaki/weblive#readme",
   "dependencies": {
     "uuid": "^11.0.3",
-    "werift": "^0.21.1"
+    "werift": "^0.21.6"
   }
 }

@@ -20,4 +20,6 @@
 // };
 
 export * from "werift";
-export * from "werift/nonstandard";
+export { MediaRecorder } from "werift/nonstandard";
+import type * as types from "werift";
+export type { types };

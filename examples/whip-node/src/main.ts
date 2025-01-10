@@ -20,7 +20,6 @@ const gst = $`gst-launch-1.0 videotestsrc ! video/x-raw,width=640,height=480,for
 const { track } = navigator.mediaDevices.getUdpMedia({
   port,
   codec: { clockRate: 90000, mimeType: "video/VP8", payloadType: 96 },
-  kind: "video",
 });
 pc.addTrack(track);
 
