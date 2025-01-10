@@ -1,7 +1,9 @@
 import {
+  RTCPeerConnection,
   RTCRtpCodecParameters,
+  useOpus,
   useVP8,
-  type werift,
+  type types,
 } from "../imports/werift.js";
 import { WhepSender } from "../imports/whepServer.js";
 import { WhipReceiver } from "../imports/whipServer.js";
@@ -11,18 +13,13 @@ export class SessionRepository {
   private whipSessions = new Map<string, WhipReceiver>();
 
   createWhipSession() {
-    const session = new WhipReceiver({
+    const pc = new RTCPeerConnection({
       codecs: {
         video: [useVP8()],
-        audio: [
-          new RTCRtpCodecParameters({
-            mimeType: "audio/opus",
-            clockRate: 48000,
-            channels: 2,
-          }),
-        ],
+        audio: [useOpus()],
       },
     });
+    const session = new WhipReceiver(pc);
     this.whipSessions.set(session.id, session);
     return session;
   }
@@ -31,8 +28,8 @@ export class SessionRepository {
     video,
     audio,
   }: {
-    video?: werift.MediaStreamTrack[];
-    audio?: werift.MediaStreamTrack;
+    video?: types.MediaStreamTrack[];
+    audio?: types.MediaStreamTrack;
   }) {
     const session = new WhepSender({
       video: video as any,
