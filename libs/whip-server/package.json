@@ -24,14 +24,14 @@
     "type": "tsc -p ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "werift": "^0.21.2",
     "@sinclair/typebox": "^0.28.18",
     "openapi3-ts": "^4.1.2",
     "sdp-transform": "^2.15.0",
-    "uuid": "^11.0.5"
+    "uuid": "^11.0.5",
+    "werift": "^0.21.2"
   },
   "devDependencies": {
-    "@types/uuid": "^10.0.0",
-    "@types/sdp-transform": "^2.4.9"
+    "@types/sdp-transform": "^2.4.9",
+    "@types/uuid": "^10.0.0"
   }
 }

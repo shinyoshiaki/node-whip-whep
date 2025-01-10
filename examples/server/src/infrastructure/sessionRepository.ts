@@ -1,6 +1,5 @@
 import {
   RTCPeerConnection,
-  RTCRtpCodecParameters,
   useOpus,
   useVP8,
   type types,
@@ -31,21 +30,15 @@ export class SessionRepository {
     video?: types.MediaStreamTrack[];
     audio?: types.MediaStreamTrack;
   }) {
-    const session = new WhepSender({
-      video: video as any,
-      audio: audio as any,
-      config: {
-        codecs: {
-          video: [useVP8()],
-          audio: [
-            new RTCRtpCodecParameters({
-              mimeType: "audio/opus",
-              clockRate: 48000,
-              channels: 2,
-            }),
-          ],
-        },
+    const pc = new RTCPeerConnection({
+      codecs: {
+        video: [useVP8()],
+        audio: [useOpus()],
       },
+    });
+    const session = new WhepSender(pc, {
+      video,
+      audio,
     });
     this.whepSessions.set(session.id, session);
     return session;

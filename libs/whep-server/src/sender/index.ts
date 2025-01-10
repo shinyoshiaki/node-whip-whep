@@ -1,11 +1,6 @@
-import { randomUUID } from "crypto";
-import { Event } from "rx.mini";
+import { v4 } from "uuid";
 import { type MediaAttributes, parse } from "sdp-transform";
-import {
-  IceCandidate,
-  RTCPeerConnection,
-  type werift,
-} from "../imports/werift.js";
+import { IceCandidate, type types, Event } from "../imports/werift.js";
 
 export interface LayersEvent {
   [key: string]: {
@@ -46,30 +41,22 @@ export type Events = LayersEvent;
 export const supportedEvents = ["layers"];
 
 export class WhepSender {
-  readonly id = randomUUID();
-  pc: werift.RTCPeerConnection;
-  etag = randomUUID();
-  event = new Event<[{ event: string; data: Events }]>();
+  readonly id = v4();
+
+  readonly etag = v4();
+  readonly event = new Event<[{ event: string; data: Events }]>();
   eventList: string[] = [];
 
   constructor(
+    readonly pc: types.RTCPeerConnection,
     private props: {
-      video?: werift.MediaStreamTrack[];
-      audio?: werift.MediaStreamTrack;
-      config?: Partial<werift.PeerConfig>;
+      video?: types.MediaStreamTrack[];
+      audio?: types.MediaStreamTrack;
     },
-  ) {
-    this.pc = new RTCPeerConnection(props.config);
-    this.pc.connectionStateChange.subscribe((state) => {
-      console.log("connectionStateChange", state);
-    });
-    this.pc.iceConnectionStateChange.subscribe((state) => {
-      console.log("iceConnectionStateChange", state);
-    });
-  }
+  ) {}
 
   get tracks() {
-    const tracks: werift.MediaStreamTrack[] = [];
+    const tracks: types.MediaStreamTrack[] = [];
     if ((this.props.video ?? []).length > 0) {
       tracks.push(this.props.video![0]);
     }
