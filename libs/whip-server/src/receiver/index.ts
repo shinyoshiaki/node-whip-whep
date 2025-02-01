@@ -45,10 +45,12 @@ export class WhipReceiver {
     });
 
     await this.pc.setRemoteDescription({ type: "offer", sdp });
-    const answer = await this.pc.createAnswer();
-    await this.pc.setLocalDescription(answer);
 
-    const obj = parse(this.pc.localDescription!.sdp);
+    const answer = await this.pc.setLocalDescription(
+      await this.pc.createAnswer(),
+    );
+
+    const obj = parse(answer.toSdp().sdp);
 
     return { answer: write(obj), etag: this.etag };
   }
