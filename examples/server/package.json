@@ -18,6 +18,6 @@
     "fastify": "^4.19.1",
     "fastify-sse-v2": "^3.1.1",
     "sdp-transform": "^2.15.0",
-    "werift": "^0.21.6"
+    "werift": "^0.21.15"
   }
 }

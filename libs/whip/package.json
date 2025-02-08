@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "uuid": "^11.0.3",
-    "werift": "^0.21.6"
+    "werift": "^0.21.15"
   }
 }
