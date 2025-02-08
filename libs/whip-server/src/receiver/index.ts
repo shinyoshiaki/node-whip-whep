@@ -2,6 +2,7 @@ import { Event } from "rx.mini";
 import { type MediaAttributes, parse, write } from "sdp-transform";
 import { v4 } from "uuid";
 import {
+  EventDisposer,
   IceCandidate,
   type types,
   useSdesRTPStreamId,
@@ -13,6 +14,7 @@ export class WhipReceiver {
 
   audio?: types.MediaStreamTrack;
   video: types.MediaStreamTrack[] = [];
+  disposer = new EventDisposer();
 
   readonly onTrack = new Event<[types.MediaStreamTrack]>();
 
@@ -36,9 +38,10 @@ export class WhipReceiver {
 
         track.onReceiveRtp.once((rtp) => {
           if (track.kind === "video") {
-            setInterval(() => {
+            const interval = setInterval(() => {
               transceiver.receiver.sendRtcpPLI(rtp.header.ssrc);
             }, 1000);
+            this.disposer.push(() => clearInterval(interval));
           }
         });
       });
@@ -84,5 +87,9 @@ export class WhipReceiver {
         ).toJSON(),
       );
     }
+  }
+
+  close() {
+    this.pc.close();
   }
 }

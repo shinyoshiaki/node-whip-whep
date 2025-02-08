@@ -1,20 +1,26 @@
 {
-  "name": "@shinyoshiaki/whip",
-  "version": "0.0.1",
+  "name": "@werift/whip",
+  "version": "0.0.2",
   "description": "",
   "license": "MIT",
   "author": "shinyoshiaki2012@gmail.com",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "require": "./lib/index.js",
+      "import": "./lib/index.mjs"
+    }
+  },
   "main": "lib/index.js",
-  "module": "lib/index.mjs",
-  "types": "lib/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "README.md"
   ],
   "scripts": {
     "build": "run-s compile:type compile:esm compile:cjs",
-    "compile:cjs": "esbuild src/index.ts --bundle --format=cjs --target=es2020 --outfile=lib/index.js",
-    "compile:esm": "esbuild src/index.ts --bundle --format=esm --target=es2020 --outfile=lib/index.mjs",
+    "compile:cjs": "esbuild src/index.ts --bundle --packages=external --platform=node --format=cjs --target=es2022 --outfile=lib/index.js",
+    "compile:esm": "esbuild src/index.ts --bundle --packages=external --platform=node --format=esm --target=es2022 --outfile=lib/index.mjs",
     "compile:type": "rm -rf lib && tsc -p tsconfig.production.json --emitDeclarationOnly",
     "deploy": "npm run build && npm publish --access public",
     "lint": "biome check --write src",
